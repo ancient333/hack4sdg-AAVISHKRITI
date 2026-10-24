@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Hand tracker inference check</title>
+<style>body{font:16px system-ui;padding:24px;background:#f6f7f3;color:#234}canvas{max-width:100%;max-height:420px;width:auto;height:auto}button{padding:12px}</style>
+<h1>Hand tracker inference check</h1><p>Recorded sample image, not a live camera test. No sign classification is performed.</p>
+<button id="run">Run sample-frame inference</button><p id="result" role="status">Not run</p><canvas id="output"></canvas>
+<script type="module">
+import {createHandTracker,drawHands} from '/src/services/handTracking.ts';
+const button=document.querySelector('#run'),status=document.querySelector('#result'),canvas=document.querySelector('#output');
+button.onclick=async()=>{
+ button.disabled=true;status.textContent='Loading model and sample…';let tracker;
+ try{
+  const image=new Image();image.src='/tests/fixtures/woman_hands.jpg';await image.decode();
+  tracker=await createHandTracker();const result=tracker.detectForVideo(image,performance.now());
+  canvas.width=image.width;canvas.height=image.height;
+  const overlay=document.createElement('canvas');overlay.width=image.width;overlay.height=image.height;drawHands(overlay,result);
+  canvas.getContext('2d').drawImage(image,0,0);canvas.getContext('2d').drawImage(overlay,0,0);
+  status.textContent=`${result.landmarks.length===2?'PASS':'CHECK'}: ${result.landmarks.length} hands; ${result.landmarks.map(hand=>hand.length).join(', ')} landmarks per hand. Real model inference on recorded image; not live camera verification.`;
+ }catch(error){status.textContent=`FAIL: ${error.message}`;}finally{tracker?.close();button.disabled=false;}
+};
+</script></html>

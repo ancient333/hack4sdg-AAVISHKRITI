@@ -1,0 +1,33 @@
+{
+    "name":  "signal-communication",
+    "version":  "0.1.0",
+    "private":  true,
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "concurrently -k \"node server/index.mjs\" \"vite --host 0.0.0.0\"",
+                    "build":  "tsc -b \u0026\u0026 vite build",
+                    "start":  "node server/index.mjs --production",
+                    "test":  "node --test server/session.test.mjs",
+                    "predev":  "node scripts/sync-vision.mjs",
+                    "prebuild":  "node scripts/sync-vision.mjs"
+                },
+    "dependencies":  {
+                         "@mediapipe/tasks-vision":  "^1.1.1",
+                         "lucide-react":  "^0.468.0",
+                         "qrcode":  "^1.5.4",
+                         "react":  "^19.0.0",
+                         "react-dom":  "^19.0.0",
+                         "three":  "^0.180.0",
+                         "ws":  "^8.18.0"
+                     },
+    "devDependencies":  {
+                            "@types/qrcode":  "^1.5.5",
+                            "@types/react":  "^19.0.0",
+                            "@types/react-dom":  "^19.0.0",
+                            "@types/three":  "^0.180.0",
+                            "@vitejs/plugin-react":  "^4.7.0",
+                            "concurrently":  "^9.1.2",
+                            "typescript":  "~5.8.3",
+                            "vite":  "^6.3.5"
+                        }
+}

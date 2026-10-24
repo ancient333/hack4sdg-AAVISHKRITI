@@ -1,0 +1,3 @@
+Phase 4 source package status
+
+The Phase 4 source edits are present. A Phase 4 APK was NOT built in the authoring environment because Gradle 8.11.1 could not be downloaded (network DNS unavailable) and no Android SDK was configured. Existing Phase 3.1 APK/build reports are intentionally excluded from this source package so they cannot be mistaken for a Phase 4 build. Build and test this project in Android Studio or another environment with Android SDK 35 and Gradle 8.11.1 available.
